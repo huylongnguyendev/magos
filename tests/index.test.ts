@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest"
-import { createBox } from "../src/telar/core/telar-create-box"
+import { createBox } from "../src/core/telar-create-box"
 
 
 describe("createBox Logic", () => {

@@ -3,8 +3,8 @@
  */
 import { renderHook, act } from "@testing-library/react"
 import { describe, it, expect } from "vitest"
-import { createBox } from "../src/telar/core/telar-create-box"
-import { useAppStore } from "../src/telar/hooks/useAppStore"
+import { createBox } from "../src/core/telar-create-box"
+import { useAppStore } from "../src/hooks/useAppStore"
 
 describe("useAppStore Hook", () => {
   it("Re-render when state's value changed", () => {
