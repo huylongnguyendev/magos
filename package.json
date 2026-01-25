@@ -1,6 +1,6 @@
 {
-  "name": "telar",
-  "version": "1.0.1",
+  "name": "mago-react",
+  "version": "1.0.0",
   "description": "A lightweight, strictly-typed state management library for React.",
   "type": "module",
   "main": "./dist/index.js",
