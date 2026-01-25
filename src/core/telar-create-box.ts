@@ -1,10 +1,12 @@
 import type { setArg, setFnArg } from "../types/box.type.js"
 import type { IBox } from "../types/store.type.js"
+let boxCount = 0
 
 export function createBox<S, A>(
   initialState: S,
   actionFactory: (set: setFnArg<S>) => A
 ): IBox<S, A> {
+  const id = `box${++boxCount}-${Math.random().toString(36).substring(2, 9)}`
 
   if (initialState === undefined)
     throw new Error("[Telar]: initialState is required (including null, 0, or false).")
@@ -48,6 +50,7 @@ export function createBox<S, A>(
   return {
     getState: () => state,
     actions,
-    subscribe
+    subscribe,
+    telar_id: id
   }
 }

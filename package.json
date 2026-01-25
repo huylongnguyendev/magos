@@ -1,6 +1,6 @@
 {
   "name": "telar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight, strictly-typed state management library for React.",
   "type": "module",
   "main": "./dist/index.js",
@@ -19,6 +19,7 @@
   "scripts": {
     "dev": "node --loader ts-node/esm src/index.ts",
     "clean": "rm -rf dist",
+    "prebuild": "find src -name '*.js' -o -name '*.d.ts' -o -name '*.map' -delete",
     "build": "npm run clean && tsc",
     "test": "vitest run",
     "lint": "eslint src --ext .ts,.tsx",
