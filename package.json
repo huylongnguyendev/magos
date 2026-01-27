@@ -17,9 +17,9 @@
     }
   },
   "scripts": {
-    "dev": "node --loader ts-node/esm src/index.ts",
-    "clean": "rm -rf dist",
-    "prebuild": "find src -name '*.js' -o -name '*.d.ts' -o -name '*.map' -delete",
+    "dev": "tsx src/index.ts",
+    "clean": "rimraf dist",
+    "prebuild": "rimraf --glob dist \"src/**/*.js\" \"src/**/*.d.ts\" \"src/**/*.map\"",
     "build": "npm run clean && tsc",
     "test": "vitest run",
     "lint": "eslint src --ext .ts,.tsx",
@@ -37,16 +37,18 @@
   "author": "Nguyen Huy Long",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=18.0.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.2",
-    "@types/react": "^18.3.27",
-    "@types/react-dom": "^18.3.7",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "eslint": "^9.0.0",
-    "react": "^18.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "rimraf": "^6.1.2",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.0.0",
     "vitest": "^4.0.18"
   }

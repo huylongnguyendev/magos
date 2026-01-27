@@ -9,18 +9,18 @@ export function createBox<S, A>(
   const id = `box${++boxCount}-${Math.random().toString(36).substring(2, 9)}`
 
   if (initialState === undefined)
-    throw new Error("[Telar]: initialState is required (including null, 0, or false).")
+    throw new Error("[Mago]: initialState is required (including null, 0, or false).")
 
   if (typeof initialState === "object"
     && initialState !== null
     && !Array.isArray(initialState)
     && Object.keys(initialState).length === 0
   )
-    throw new Error("[Telar]: initialState cannot be an empty object {}.")
+    throw new Error("[Mago]: initialState cannot be an empty object {}.")
 
 
   if (typeof actionFactory !== "function")
-    throw new Error("[Telar]: actionFactory must be a function. Example: (set) => ({ ... })")
+    throw new Error("[Mago]: actionFactory must be a function. Example: (set) => ({ ... })")
 
   let state = initialState
   const listeners = new Set<() => void>()
@@ -31,7 +31,7 @@ export function createBox<S, A>(
       : next
 
     if (newState === undefined) {
-      throw new Error("[Telar]: Cannot update state to undefined.");
+      throw new Error("[Mago]: Cannot update state to undefined.");
     }
 
     if (!Object.is(state, newState)) {
@@ -51,6 +51,6 @@ export function createBox<S, A>(
     getState: () => state,
     actions,
     subscribe,
-    telar_id: id
+    mago_id: id
   }
 }
