@@ -1,55 +1,52 @@
 {
-  "name": "mago-react",
-  "version": "1.0.1",
-  "description": "A lightweight, strictly-typed state management library for React.",
+  "name": "magos",
+  "version": "1.0.0",
+  "description": "Strictly-typed state management for React and Vanilla JS.",
   "type": "module",
-  "main": "./dist/index.js",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    },
+    "./vanilla": {
+      "types": "./dist/vanilla/index.d.ts",
+      "import": "./dist/vanilla/index.js",
+      "require": "./dist/vanilla/index.cjs"
     }
   },
-  "scripts": {
-    "dev": "tsx src/index.ts",
-    "clean": "rimraf dist",
-    "prebuild": "rimraf --glob dist \"src/**/*.js\" \"src/**/*.d.ts\" \"src/**/*.map\"",
-    "build": "npm run clean && tsc",
-    "test": "vitest run",
-    "lint": "eslint src --ext .ts,.tsx",
-    "release:patch": "npm run build && npm version patch && npm publish",
-    "release:minor": "npm run build && npm version minor && npm publish",
-    "release:major": "npm run build && npm version major && npm publish"
-  },
-  "keywords": [
-    "react",
-    "state",
-    "management",
-    "typescript",
-    "strict"
+  "files": [
+    "dist"
   ],
-  "author": "Nguyen Huy Long",
-  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsup src/index.ts src/react/index.ts src/vanilla/index.ts --format esm,cjs --dts --clean --external react",
+    "test": "vitest run",
+    "release:patch": "npm run build && npm version patch && npm publish"
+  },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "@testing-library/react": "^16.3.2",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "eslint": "^9.0.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "rimraf": "^6.1.2",
-    "tsx": "^4.21.0",
+    "tsup": "^8.3.0",
     "typescript": "^5.0.0",
-    "vitest": "^4.0.18"
+    "rimraf": "^6.1.2",
+    "vitest": "^3.0.0",
+    "react": "^18.3.1",
+    "@types/react": "^18.3.12"
   }
 }

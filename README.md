@@ -1,30 +1,121 @@
-# Telar
+# Mago
 
-A lightweight, strictly-typed state management library for React,
+![Mago Logo](./assets/logo-mago-40.png)
+
+A lightweight, strictly-typed state management library for React and Vanilla JS,
  built with a focus on data integrity and developer experience.
 
 Unlike other libraries that allow "empty" or "undefined" states to creep into
- your logic, Telar enforces strict rules at the core level
- to prevent common frontend bugs.
+ your logic, Mago enforces strict rules at the core level to prevent common
+ frontend bugs before they happen.
 
-## Key Features
+## ✨ Key Features
 
-- **Zero-Empty-Object Policy**: Prevents initializing or updating state with an
- empty object {}.
-- **Primitive Support**: Full support for string, number, boolean, null, and arrays.
-- **React 18 Ready**: Uses `useSyncExternalStore` for tear-free, synchronized rendering.
-- **Type Safe**: Deep TypeScript integration with zero-config type inference.
-- **Minimalist**: No boilerplate. No complex providers. Just boxes.
+* 🛡️ **Zero-Empty-Object Policy**: Prevents initializing or updating state with an empty object {}.
 
-## Installation
+* 🚫 **Serializable Integrity**: Blocks functions within the state to ensure data
+ remains clean and predictable.
+
+* ⚛️ **React 18 Ready**: Uses useSyncExternalStore for tear-free, synchronized
+ rendering in Concurrent Mode.
+
+* 🍦 **Vanilla Support**: Effortless DOM synchronization via unbox without any
+ framework overhead.
+
+* 🕵️ **Conflict Detection**: Built-in ID tracking (mago_id) prevents accidental
+ duplicate box registration in your store.
+
+* 🧊 **Type Safe**: Deep TypeScript integration with zero-config type inference.
+
+---
+### 📥 Installation
 
 ```bash
-npm install telar
+npm install mago-react
 # or
-yarn add telar
+yarn add mago-react
+```
 
-License
+---
+
+### 🚀 Quick Start
+
+1. **Create a Box**
+
+  Define your state and actions. Mago will warn you if you try to pass invalid
+ state patterns.
+
+```js
+import { createBox } from 'mago-react';
+
+// Full support for primitives and non-empty objects
+export const counterBox = createBox(0, (set) => ({
+  inc: () => set(prev => prev + 1),
+  reset: () => set(0)
+}));
+```
+
+2. **Connect to React**
+
+No Providers needed. Just hook it up and go.
+
+```js
+import { useAppStore } from 'mago-react/react';
+import { counterBox } from './store';
+
+function Counter() {
+  const [count, actions] = useAppStore(counterBox);
+
+  return <button onClick={actions.inc}>{count}</button>;
+}
+```
+
+3. **Use in Vanilla JS**
+
+Sync your state directly to the UI with automatic cleanup support.
+
+```js
+import { unbox } from 'mago-react/vanilla';
+import { counterBox } from './store';
+
+const el = document.querySelector('#counter');
+const [state, actions, unsubscribe] = unbox(counterBox, el);
+```
+
+---
+
+#### ⚖️ The Mago Philosophy
+
+Mago is built on the belief that State should be meaningful. 1. No undefined
+ updates: State must always have a value (null, 0, and false are fine). 2. No
+ empty objects: If you have an object, it should have data. {} is often a sign
+ of uninitialized or missing data. 3. Reference Stability: Actions are generated
+ once and remain stable, preventing unnecessary re-renders.
+
+---
+
+##### 📖 API Reference
+
+`createBox(initialState, actionFactory)`
+Creates a reactive state container.
+
+  **Validation**: Warns/Throws on undefined, {}, or functions within the state object.
+
+`createStore(boxes)`
+Combines multiple boxes into a central registry.
+
+  **Validation**: Ensures every box is unique via internal mago_id.
+
+`useAppStore(box)`
+A React hook for synchronized state access.
+
+`unbox(box, targets, selector?)`
+Synchronizes state with one or more HTML elements.
+
+---
+
+📜 License
 MIT
 
-Author
+👤 Author
 Nguyen Huy Long

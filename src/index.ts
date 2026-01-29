@@ -1,4 +1,2 @@
-export * from "./hooks/useAppStore.js"
-export * from "./types/box.type.js"
-export * from "./core/mago-create-box.js"
-export * from "./core/mago-create-store.js"
+export * from "./core/magos-create-box.js"
+export * from "./core/magos-create-store.js" 

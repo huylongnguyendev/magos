@@ -3,15 +3,30 @@
     "target": "ES2020",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "jsx": "react-jsx",          // Bắt buộc để nhận diện @testing-library/react
+    "jsx": "react-jsx",
     "outDir": "dist",
     "rootDir": "src",
-    "declaration": true,         // Tạo file .d.ts cho người dùng
+    
+    /* Declaration */
+    "declaration": true,
+    "declarationMap": true, 
+    
+    /* Interop & Check */
     "esModuleInterop": true,
-    "skipLibCheck": true,        // Bỏ qua kiểm tra lỗi trong node_modules (Rất quan trọng)
+    "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+
+    /* Cực kỳ quan trọng cho Library */
+    "moduleDetection": "force",
+    "isolatedModules": true, // Đảm bảo tsup/esbuild build từng file an toàn
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"] // Đừng cho file test vào bản build
+  "exclude": [
+    "node_modules", 
+    "dist", 
+    "**/*.test.ts", 
+    "**/*.test.tsx", 
+    "src/**/*.test.ts"
+  ]
 }
