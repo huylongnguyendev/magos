@@ -1,12 +1,12 @@
-# Mago
+# Magos
 
-![Mago Logo](./assets/logo-mago-40.png)
+![Magos Logo](./assets/logo-mago-40.png)
 
 A lightweight, strictly-typed state management library for React and Vanilla JS,
  built with a focus on data integrity and developer experience.
 
 Unlike other libraries that allow "empty" or "undefined" states to creep into
- your logic, Mago enforces strict rules at the core level to prevent common
+ your logic, Magos enforces strict rules at the core level to prevent common
  frontend bugs before they happen.
 
 ## ✨ Key Features
@@ -22,7 +22,7 @@ Unlike other libraries that allow "empty" or "undefined" states to creep into
 * 🍦 **Vanilla Support**: Effortless DOM synchronization via unbox without any
  framework overhead.
 
-* 🕵️ **Conflict Detection**: Built-in ID tracking (mago_id) prevents accidental
+* 🕵️ **Conflict Detection**: Built-in ID tracking (magos_id) prevents accidental
  duplicate box registration in your store.
 
 * 🧊 **Type Safe**: Deep TypeScript integration with zero-config type inference.
@@ -31,9 +31,9 @@ Unlike other libraries that allow "empty" or "undefined" states to creep into
 ### 📥 Installation
 
 ```bash
-npm install mago-react
+npm install magos-react
 # or
-yarn add mago-react
+yarn add magos-react
 ```
 
 ---
@@ -42,11 +42,11 @@ yarn add mago-react
 
 1. **Create a Box**
 
-  Define your state and actions. Mago will warn you if you try to pass invalid
+  Define your state and actions. Magos will warn you if you try to pass invalid
  state patterns.
 
 ```js
-import { createBox } from 'mago-react';
+import { createBox } from 'magos-react';
 
 // Full support for primitives and non-empty objects
 export const counterBox = createBox(0, (set) => ({
@@ -60,7 +60,7 @@ export const counterBox = createBox(0, (set) => ({
 No Providers needed. Just hook it up and go.
 
 ```js
-import { useAppStore } from 'mago-react/react';
+import { useAppStore } from 'magos-react/react';
 import { counterBox } from './store';
 
 function Counter() {
@@ -75,7 +75,7 @@ function Counter() {
 Sync your state directly to the UI with automatic cleanup support.
 
 ```js
-import { unbox } from 'mago-react/vanilla';
+import { unbox } from 'magos-react/vanilla';
 import { counterBox } from './store';
 
 const el = document.querySelector('#counter');
@@ -84,9 +84,9 @@ const [state, actions, unsubscribe] = unbox(counterBox, el);
 
 ---
 
-#### ⚖️ The Mago Philosophy
+#### ⚖️ The Magos Philosophy
 
-Mago is built on the belief that State should be meaningful. 1. No undefined
+Magos is built on the belief that State should be meaningful. 1. No undefined
  updates: State must always have a value (null, 0, and false are fine). 2. No
  empty objects: If you have an object, it should have data. {} is often a sign
  of uninitialized or missing data. 3. Reference Stability: Actions are generated
@@ -104,7 +104,7 @@ Creates a reactive state container.
 `createStore(boxes)`
 Combines multiple boxes into a central registry.
 
-  **Validation**: Ensures every box is unique via internal mago_id.
+  **Validation**: Ensures every box is unique via internal magos_id.
 
 `useAppStore(box)`
 A React hook for synchronized state access.
