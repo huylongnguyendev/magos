@@ -58,5 +58,5 @@ export function unbox<S, A>(
   const unsubscribe = box.subscribe(updateUI)
   updateUI()
 
-  return [box.getState(), box.actions, unsubscribe]
+  return [box.getState(), box.actions, unsubscribe] as const
 }
