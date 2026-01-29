@@ -1,6 +1,6 @@
 {
   "name": "magos",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Strictly-typed state management for React and Vanilla JS.",
   "type": "module",
   "sideEffects": false,

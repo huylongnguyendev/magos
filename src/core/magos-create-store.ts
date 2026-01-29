@@ -2,7 +2,6 @@
  * Creates a centralized Mago store by combining multiple boxes.
  * It ensures each box is unique within the store to prevent state conflicts.
  * * @param boxes - An object where keys are names and values are Mago boxes created via `createBox`.
- * @deprecated **Warning:** If you pass an empty object `{}`, Mago will log a console warning.
  * @returns The same boxes object if all validations pass.
  * @throws {Error} If a box is assigned to multiple keys (detected via `mago_id`).
  * * @example
