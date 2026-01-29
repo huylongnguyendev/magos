@@ -1,6 +1,6 @@
 # Magos
 
-![Magos Logo](./assets/logo-mago-40.png)
+![Magos Logo](https://github.com/huylongnguyendev/magos/blob/main/assets/logo-mago-40.png)
 
 A lightweight, strictly-typed state management library for React and Vanilla JS,
  built with a focus on data integrity and developer experience.
