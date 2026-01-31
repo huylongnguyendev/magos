@@ -1,15 +1,10 @@
 /**
  * Creates a Mago box - a reactive state container with actions.
  * * @param initialState - The starting state. Cannot be undefined, an empty object, or contain functions.
- * @param actionFactory - A function that receives `set` and returns an object of actions.
+ * @param actionFactory - A function that receives `set` and returns an object where each property is an action function.
  * @returns A strictly-typed IBox containing state, actions, and a subscription method.
  * * @throws {Error} If initialState is invalid (undefined, {}, or contains functions).
- * @throws {Error} If actionFactory is not a function.
- * * @example
- * const counterBox = createBox(0, (set) => ({
- * inc: () => set(prev => prev + 1),
- * reset: () => set(0)
- * }));
+ * @throws {Error} If actionFactory is not a function or doesn't return an object of functions.
  */
 
 import type { setArg, setFnArg } from "../types/box.type.js"
@@ -22,7 +17,7 @@ export function createBox<S, A>(
 ): IBox<S, A> {
   const id = `box${++boxCount}-${Math.random().toString(36).substring(2, 9)}`
 
-  if (initialState === undefined)
+  if (initialState === undefined || typeof initialState === "function")
     throw new Error("[Magos]: initialState is required (including null, 0, or false).")
 
   if (typeof initialState === "object"
@@ -35,7 +30,7 @@ export function createBox<S, A>(
     } else {
       for (const value of values) {
         if (typeof value === "function")
-          throw new Error("[Magos]: initialState cannot is an object containing a function value.")
+          throw new Error("[Magos]: initialState cannot be an object containing a function value.")
       }
     }
   }
@@ -62,6 +57,22 @@ export function createBox<S, A>(
   }
 
   const actions = actionFactory(set)
+
+  if (typeof actions !== "object" || actions === null || Array.isArray(actions)) {
+    throw new Error("[Magos]: `actionFactory` must return an object of functions. Example: (set) => ({ inc: () => set(...) })")
+  }
+
+  const entries = Object.entries(actions)
+
+  if (entries.length === 0) {
+    throw new Error("[Magos]: `actionFactory` returned an empty object. You should define at least one action.")
+  }
+
+  for (const [key, value] of entries) {
+    if (typeof value !== "function") {
+      throw new Error(`[Magos]: Action "${key}" must be a function.`)
+    }
+  }
 
   const subscribe = (callback: (state: S) => void) => {
     listeners.add(callback)
